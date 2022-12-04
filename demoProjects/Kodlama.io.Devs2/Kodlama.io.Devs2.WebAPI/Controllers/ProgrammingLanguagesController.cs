@@ -1,5 +1,6 @@
 ﻿using Core.Application.Requests;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.CreateProgrammingLanguage;
+using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.UpdateProgrammingLanguage;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Dtos;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Models;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Queries.GetByIdProgrammingLanguage;
@@ -38,6 +39,14 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
         {
             var result = await Mediator.Send(getByIdProgrammingLanguageQuery);
             return Ok(result);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromBody] UpdateProgrammingLanguageCommand updateProgrammingLanguageCommand)
+        {
+            var result = await Mediator.Send(updateProgrammingLanguageCommand);
+
+            return Created("", result);
         }
     }
 }
