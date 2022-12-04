@@ -8,7 +8,11 @@
 
   <ItemGroup>
     <Folder Include="Features\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\corePackages\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\Kodlama.io.Devs2.Domain\Kodlama.io.Devs2.Domain.csproj" />
   </ItemGroup>
 
 </Project>
