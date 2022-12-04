@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
 using _ProgrammingLanguage = Kodlama.io.Devs2.Domain.Entities.ProgrammingLanguage; // Porje Klasörü adı ile aynı olduğu için uzun uzun yazmak yerine bir değişkene atadım
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Dtos;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.CreateProgrammingLanguage;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Models;
@@ -34,6 +29,9 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Profiles
             CreateMap<_ProgrammingLanguage, ProgrammingLanguageDto>().ReverseMap();
             #endregion
 
+            #region Get By Id
+            CreateMap<_ProgrammingLanguage,ProgrammingLanguageGetByIdDto>().ReverseMap();
+            #endregion
 
         }
 
