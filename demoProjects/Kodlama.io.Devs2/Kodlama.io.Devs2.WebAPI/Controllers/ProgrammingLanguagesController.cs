@@ -1,5 +1,8 @@
-﻿using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.CreateProgrammingLanguage;
+﻿using Core.Application.Requests;
+using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.CreateProgrammingLanguage;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Dtos;
+using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Models;
+using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Queries.GetListProgrammingLanguage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +19,17 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
         {
             CreatedProgrammingLanguageDto result = await Mediator.Send(createProgrammingLanguageCommand); // Command'i de Madiator aracığılıyla handler'ını bulması için görevlendiriyoruz.
             return Created("", result);
+        }
+
+        [HttpGet("getlist")]
+        public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
+        {
+            GetListProgrammingLanguageQuery getListProgrammingLanguageQuery = new() { PageRequest = pageRequest }; // Bu yeni kullanımdır eski hali aşağıdaki gibidir.
+                                                                                                                   // GetListBrandQuery getListBrandQuery = new GetListBrandQuery();
+                                                                                                                   // getListBrandQuery.PageRequest = pageRequest;
+
+            ProgrammingLanguageListModel result = await Mediator.Send(getListProgrammingLanguageQuery);
+            return Ok(result);
         }
     }
 }
