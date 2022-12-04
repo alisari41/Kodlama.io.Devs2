@@ -7,10 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
+    <Folder Include="Features\ProgrammingLanguage\Constants\" />
+    <Folder Include="Features\ProgrammingLanguage\Models\" />
+    <Folder Include="Features\ProgrammingLanguage\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\corePackages\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\..\..\src\corePackages\Core.Persistence\Core.Persistence.csproj" />
     <ProjectReference Include="..\Kodlama.io.Devs2.Domain\Kodlama.io.Devs2.Domain.csproj" />
   </ItemGroup>

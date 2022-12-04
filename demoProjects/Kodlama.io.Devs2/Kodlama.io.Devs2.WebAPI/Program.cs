@@ -1,15 +1,21 @@
+using Core.CrossCuttingConcerns.Exceptions;
+using Kodlama.io.Devs2.Application;
 using Kodlama.io.Devs2.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+#region Her projenin kendi servisleri olacak bunlarý bir bütün olarak sýnýflarý sadece buraya ekliyoruz
 
 builder.Services.AddControllers();
-//builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices();
 //builder.Services.AddSecurityServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 //builder.Services.AddInfrastructureServices();
-builder.Services.AddHttpContextAccessor();
+//builder.Services.AddHttpContextAccessor();
+
+#endregion
+
 
 
 
@@ -33,8 +39,14 @@ if (app.Environment.IsDevelopment())
 }
 
 
-//if (app.Environment.IsProduction())
-//    app.ConfigureCustomExceptionMiddleware();
+#region MiddleWare'i ekleyerek hata mesajýný düzeltiyorüz
+
+if (app.Environment.IsProduction()) // Bunu açýklama satýrý yapýp çalýþtýrýrsak sadece hata mesajýnýn sade halini alýrýz ama bu þekilde çalýþtýrýrsak detaytlý bir þekilde hata mesajýný alýrýz
+    app.ConfigureCustomExceptionMiddleware();
+
+#endregion
+
+
 
 
 
