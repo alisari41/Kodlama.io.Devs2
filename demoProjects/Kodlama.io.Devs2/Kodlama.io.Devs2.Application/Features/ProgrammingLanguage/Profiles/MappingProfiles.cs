@@ -5,6 +5,7 @@ using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.CreateP
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Models;
 using Core.Persistence.Paging;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.UpdateProgrammingLanguage;
+using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.DeleteProgrammingLanguage;
 
 namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Profiles
 {
@@ -37,6 +38,11 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Profiles
             #region Update
             CreateMap<_ProgrammingLanguage, UpdatedProgrammingLanguageDto>().ReverseMap(); 
             CreateMap<_ProgrammingLanguage, UpdateProgrammingLanguageCommand>().ReverseMap();
+            #endregion
+
+            #region Delete
+            CreateMap<_ProgrammingLanguage, DeletedProgrammingLanguageDto>().ReverseMap(); 
+            CreateMap<_ProgrammingLanguage, DeleteProgrammingLanguageCommand>().ReverseMap();
             #endregion
 
         }

@@ -1,5 +1,6 @@
 ﻿using Core.Application.Requests;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.CreateProgrammingLanguage;
+using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.DeleteProgrammingLanguage;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.UpdateProgrammingLanguage;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Dtos;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Models;
@@ -47,6 +48,14 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
             var result = await Mediator.Send(updateProgrammingLanguageCommand);
 
             return Created("", result);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteProgrammingLanguageCommand deleteProgrammingLanguageCommand)
+        {
+            var result = await Mediator.Send(deleteProgrammingLanguageCommand);
+
+            return Ok(result);
         }
     }
 }
