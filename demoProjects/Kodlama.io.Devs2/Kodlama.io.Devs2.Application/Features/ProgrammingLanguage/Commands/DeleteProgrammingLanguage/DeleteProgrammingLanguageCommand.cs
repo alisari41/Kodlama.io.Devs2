@@ -28,12 +28,16 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.Del
             public async Task<DeletedProgrammingLanguageDto> Handle(DeleteProgrammingLanguageCommand request, CancellationToken cancellationToken)
             {
 
-                //await _programmingLanguageRules.ProgrammingIdCanNotBeDuplicatedWhenInserted(request.Id); // yollanan id boş mu diye kontrol sağlaması lazım
+                var programmingLanguage = await _programmingLanguageRules.ProgrammingLanguageShouldExistWhenRequested(request.Id); // yollanan id boş mu diye kontrol sağlaması lazım
 
-                var mappedProgrammingLanguage = _mapper.Map<_ProgrammingLanguage>(request);
-                var deletedProgrammingLanguage = await _programmingLanguageRepository.DeleteAsync(mappedProgrammingLanguage);
+                #region Yukarıdaki satırda sorgulama yapıldıktan sonra neden MAPleme ("mappedProgrammingLanguage") yapılmadığının açıklaması
+                //var mappedProgrammingLanguage = _mapper.Map<_ProgrammingLanguage>(request);
+                // Git Hub Link: https://github.com/kodlamaio-projects/nArchitecture.RentACarProject/issues/118#issuecomment-1345567819
+                #endregion
 
-                var deleteProgrammingLanguageDto=_mapper.Map<DeletedProgrammingLanguageDto>(deletedProgrammingLanguage);
+                var deletedProgrammingLanguage = await _programmingLanguageRepository.DeleteAsync(programmingLanguage);
+
+                var deleteProgrammingLanguageDto = _mapper.Map<DeletedProgrammingLanguageDto>(deletedProgrammingLanguage);
 
                 return deleteProgrammingLanguageDto;
 
