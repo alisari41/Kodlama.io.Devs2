@@ -31,9 +31,7 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Queries.GetB
 
             public async Task<ProgrammingLanguageGetByIdDto> Handle(GetByIdProgrammingLanguageQuery request, CancellationToken cancellationToken)
             {
-                _ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(x => x.Id == request.Id);
-
-                _programmingLanguageRules.ProgrammingLanguageShouldExitsWhenRequested(programmingLanguage); // Programlama dili boş mu diye kontrol yapılır
+                var programmingLanguage = await _programmingLanguageRules.ProgrammingLanguageShouldExistWhenRequested(request.Id); // yollanan id boş mu diye kontrol sağlaması lazım
 
                 ProgrammingLanguageGetByIdDto programmingLanguageGetByIdDto = _mapper.Map<ProgrammingLanguageGetByIdDto>(programmingLanguage);
                 return programmingLanguageGetByIdDto;
