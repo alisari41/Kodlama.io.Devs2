@@ -38,14 +38,24 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.Upd
 
             public async Task<UpdatedProgrammingLanguageDto> Handle(UpdateProgrammingLanguageCommand request, CancellationToken cancellationToken)
             {
-                await _programmingLanguageRules.ProgrammingLanguageConNotBeDuplicatedWhenInserted(request.Name); // BusinessRules lerini yazılıyor.
+                //await _programmingLanguageRules.ProgrammingLanguageConNotBeDuplicatedWhenInserted(request.Name); // BusinessRules lerini yazılıyor.
 
-                // Bu adımı çözmek gerekir
-                //Domain.Entities.ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(c => c.Id == request.Id);
-                //_programmingLanguageRules.ProgrammingLanguageExitsWhenRequested(programmingLanguage); // ProgrammingLanguage boş mu diye kontol sağlar güvenlik için
+                var programmingLanguage = await _programmingLanguageRules.ProgrammingLanguageConNotBeDuplicatedWhenUpdated(request.Id, request.Name);
 
-                var mappedProgrammingLanguage = _mapper.Map<_ProgrammingLanguage>(request); // mapper kullanarak Parametre olarak gelen "request"'i Brand nesnesine çevir
-                var updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(mappedProgrammingLanguage); // repository kullanarak güncelleme işlemini gerçekleştirmem gerekiyor     (updatedProgrammingLanguage veritabanından dönen dil)
+                #region Geri Dönen Nesne eğer boş dönüyorsa mapleme işlemi yapılması gerekmektedir.
+                _ProgrammingLanguage? updatedProgrammingLanguage ;
+
+                if (programmingLanguage == null)
+                {
+                    // Geri dönen nesne boş döndü dönmesinin sebebi aynı isimde veri bulumaması yani doğru şekilde sorguyu geçti bu sebebten dolayı ilk yolladığım request'i mapping yapmak gerekir.
+                    var mappedProgrammingLanguage = _mapper.Map<_ProgrammingLanguage>(request); 
+                    updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(mappedProgrammingLanguage);
+                }
+                else
+                {
+                    updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(programmingLanguage);
+                }
+                #endregion
 
                 var updatedProgrammingLanguageDto = _mapper.Map<UpdatedProgrammingLanguageDto>(updatedProgrammingLanguage);
 
