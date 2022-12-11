@@ -38,7 +38,7 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.Upd
 
             public async Task<UpdatedProgrammingLanguageDto> Handle(UpdateProgrammingLanguageCommand request, CancellationToken cancellationToken)
             {
-                //await _programmingLanguageRules.ProgrammingLanguageConNotBeDuplicatedWhenInserted(request.Name); // BusinessRules lerini yazılıyor.
+                var programmingLanguage1 = await _programmingLanguageRules.ProgrammingLanguageShouldExistWhenRequested(request.Id); // yollanan id boş mu diye kontrol sağlaması lazım
 
                 var programmingLanguage = await _programmingLanguageRules.ProgrammingLanguageConNotBeDuplicatedWhenUpdated(request.Id, request.Name);
 
@@ -48,8 +48,9 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.Upd
                 if (programmingLanguage == null)
                 {
                     // Geri dönen nesne boş döndü dönmesinin sebebi aynı isimde veri bulumaması yani doğru şekilde sorguyu geçti bu sebebten dolayı ilk yolladığım request'i mapping yapmak gerekir.
-                    var mappedProgrammingLanguage = _mapper.Map<_ProgrammingLanguage>(request); 
-                    updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(mappedProgrammingLanguage);
+                    //var mappedProgrammingLanguage = _mapper.Map<_ProgrammingLanguage>(request); 
+                    programmingLanguage1.Name=request.Name;
+                    updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(programmingLanguage1);
                 }
                 else
                 {
