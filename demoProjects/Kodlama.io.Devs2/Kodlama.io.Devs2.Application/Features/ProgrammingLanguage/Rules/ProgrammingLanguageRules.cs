@@ -37,37 +37,26 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Rules
             // Eğer bir Programlama Dili  talep ediliyorsa o dilin olması gerekir.
             var programmingLanguage = await _programmingLanguageRepository.GetAsync(p => p.Id == id);
 
-            if (programmingLanguage == null)
-                throw new BusinessException("Programlama dili mevcut değildir.");
-            else
-            {
-                return programmingLanguage;
-            }
+            return (programmingLanguage == null) ? throw new BusinessException("Programlama dili mevcut değildir.") : programmingLanguage;
         }
 
         public async Task<_ProgrammingLanguage> ProgrammingLanguageConNotBeDuplicatedWhenUpdated(int id, string name)
         {
 
-            var programmingLanguage = await _programmingLanguageRepository.GetAsync(x => x.Name == name);
+            var programmingLanguage = await _programmingLanguageRepository.GetAsync(x => x.Name == name); // Aynı isimde veri var mı
             int say = 0;
             if (programmingLanguage != null)
             {
-                programmingLanguage = await _programmingLanguageRepository.GetAsync(x => (x.Id == id && x.Name == name));
+                programmingLanguage = await _programmingLanguageRepository.GetAsync(x => (x.Id == id && x.Name == name)); // Aynı isimdeki veri aynı id mi evetse devam etsin hayırsa aynı isimden vardır hatası versin
 
                 if (programmingLanguage == null)
                 {
-                    say = 1;
+                    say = 1; // buradan bir döndürmemim sebebi eğer aynı isimde farklı id'de değişken varsa hata verdirmek için
                     throw new BusinessException("Progralama Dili kullanılmaktadır!");
                 }
             }
-            if (say == 1)
-            {
-                throw new BusinessException("Progralama Dili kullanılmaktadır!");
-            }
-            else
-            {
-                return programmingLanguage;
-            }
+
+            return (say == 1) ? throw new BusinessException("Progralama Dili kullanılmaktadır!") : programmingLanguage;
         }
     }
 }
