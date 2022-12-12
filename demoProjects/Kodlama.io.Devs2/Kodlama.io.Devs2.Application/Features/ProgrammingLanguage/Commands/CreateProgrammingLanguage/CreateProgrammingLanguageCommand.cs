@@ -34,11 +34,12 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.Cre
 
             public async Task<CreatedProgrammingLanguageDto> Handle(CreateProgrammingLanguageCommand request, CancellationToken cancellationToken)
             {
+
+                //var programmingLanguage = await _programmingLanguageRepository.GetAsync(x => x.Name == request.Name);
                 await _programmingLanguageRules.ProgrammingLanguageConNotBeDuplicatedWhenInserted(request.Name);// BusinessRules lerin yazılıyor.
 
                 Domain.Entities.ProgrammingLanguage mappedProgrammingLanguage = _mapper.Map<Domain.Entities.ProgrammingLanguage>(request); // mapper kullanarak Parametre olarak gelen "request"'i Brand nesnesine çevir.      
                 //Dikkat!!! ProgrammingLanguage>(request); içerisinde (request.name) yazılmaz
-
 
                 Domain.Entities.ProgrammingLanguage createdProgrammingLanguage = await _programmingLanguageRepository.AddAsync(mappedProgrammingLanguage); // repository kullanarak ekleme işlemini gerçekleştirmem gerekiyor     (createdProgrammingLanguage veritabanından dönen ProgrammingLanguage)
 
