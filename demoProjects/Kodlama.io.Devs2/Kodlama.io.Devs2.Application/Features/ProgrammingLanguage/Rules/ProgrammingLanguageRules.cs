@@ -50,10 +50,11 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Rules
 
             var programmingLanguage = await _programmingLanguageRepository.GetAsync(x => x.Name == name);
             int say = 0;
-            var programmingLanguage2 = await _programmingLanguageRepository.GetAsync(x => (x.Id == id && x.Name == name));
             if (programmingLanguage != null)
             {
-                if (programmingLanguage2 == null)
+                programmingLanguage = await _programmingLanguageRepository.GetAsync(x => (x.Id == id && x.Name == name));
+
+                if (programmingLanguage == null)
                 {
                     say = 1;
                     throw new BusinessException("Progralama Dili kullanılmaktadır!");
@@ -65,7 +66,7 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Rules
             }
             else
             {
-                return programmingLanguage2;
+                return programmingLanguage;
             }
         }
     }

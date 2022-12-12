@@ -43,13 +43,14 @@ namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.Upd
                 var programmingLanguage = await _programmingLanguageRules.ProgrammingLanguageConNotBeDuplicatedWhenUpdated(request.Id, request.Name);
 
                 #region Geri Dönen Nesne eğer boş dönüyorsa mapleme işlemi yapılması gerekmektedir.
-                _ProgrammingLanguage? updatedProgrammingLanguage ;
+                _ProgrammingLanguage? updatedProgrammingLanguage;
 
                 if (programmingLanguage == null)
                 {
                     // Geri dönen nesne boş döndü dönmesinin sebebi aynı isimde veri bulumaması yani doğru şekilde sorguyu geçti bu sebebten dolayı ilk yolladığım request'i mapping yapmak gerekir.
                     //var mappedProgrammingLanguage = _mapper.Map<_ProgrammingLanguage>(request); 
-                    programmingLanguage1.Name=request.Name;
+                    //_mapper.Map(programmingLanguage1, request);
+                    programmingLanguage1.Name = request.Name;
                     updatedProgrammingLanguage = await _programmingLanguageRepository.UpdateAsync(programmingLanguage1);
                 }
                 else
