@@ -17,7 +17,11 @@ namespace Kodlama.io.Devs2.Persistence
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ProgrammingLanguageConnectionString")));// Projenin Adı Sonrasında ConnectionString
+
+            #region Repository'lerin Bağlanması
             services.AddScoped<IProgrammingLanguageRepository, ProgrammingLanguageRepository>();// Eğer Biri IProgrammingLanguageRepository isterse ona ProgrammingLanguageRepository ver 
+            services.AddScoped<ITechnologyRepository, TechnologyRepository>();
+            #endregion
 
             return services;
         }
