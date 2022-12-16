@@ -1,12 +1,12 @@
 ﻿using Core.Persistence.Paging;
-using Kodlama.io.Devs2.Application.Features.Technolojies.Dtos;
+using Kodlama.io.Devs2.Application.Features.Technologies.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kodlama.io.Devs2.Application.Features.Technolojies.Models
+namespace Kodlama.io.Devs2.Application.Features.Technologies.Models
 {
     public class TechnologyListModel : BasePageableModel
     {

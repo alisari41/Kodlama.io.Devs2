@@ -1,5 +1,5 @@
 ﻿using Core.Application.Requests;
-using Kodlama.io.Devs2.Application.Features.Technolojies.Queries.GetListTechnolojy;
+using Kodlama.io.Devs2.Application.Features.Technologies.Queries.GetListTechnolojy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
