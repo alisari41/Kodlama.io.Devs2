@@ -3,6 +3,7 @@ using Core.Persistence.Paging;
 using Kodlama.io.Devs2.Application.Features.Technologies.Models;
 using Kodlama.io.Devs2.Domain.Entities;
 using Kodlama.io.Devs2.Application.Features.Technologies.Dtos;
+using Kodlama.io.Devs2.Application.Features.Technologies.Commands.CreateTechnology;
 
 namespace Kodlama.io.Devs2.Application.Features.Technologies.Profiles;
 
@@ -27,6 +28,11 @@ public class MappingProfiles : Profile
         #endregion
 
         CreateMap<IPaginate<Technology>, TechnologyListModel>().ReverseMap();
+        #endregion
+
+        #region Create
+        CreateMap<Technology,CreatedTechnologyDto>().ReverseMap();
+        CreateMap<Technology,CreateTechnologyCommand>().ReverseMap();
         #endregion
 
     }

@@ -1,5 +1,6 @@
 ﻿using Core.Application.Requests;
 using Core.Persistence.Dynamic;
+using Kodlama.io.Devs2.Application.Features.Technologies.Commands.CreateTechnology;
 using Kodlama.io.Devs2.Application.Features.Technologies.Queries.GetListTechnologyByDynamic;
 using Kodlama.io.Devs2.Application.Features.Technologies.Queries.GetListTechnolojy;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,13 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
 
             var result = await Mediator.Send(getListTechnologyByDynamicQuery);
             return Ok(result);
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromBody] CreateTechnologyCommand createTechnologyCommand)
+        {
+            var result = await Mediator.Send(createTechnologyCommand);
+            return Created("", result);
         }
     }
 }

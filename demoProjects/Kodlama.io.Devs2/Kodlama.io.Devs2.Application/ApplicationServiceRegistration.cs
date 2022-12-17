@@ -1,6 +1,7 @@
 ﻿using Core.Application.Pipelines.Validation;
 using FluentValidation;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Rules;
+using Kodlama.io.Devs2.Application.Features.Technologies.Rules;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -21,7 +22,11 @@ namespace Kodlama.io.Devs2.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
+            #region İş Kurallarının Servisleri
             services.AddScoped<ProgrammingLanguageRules>(); // Business Kuralları bir kere bellekte durur.
+            services.AddScoped<TechnologyRules>();
+            #endregion
+
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()); // Fluent Validation: Bir nesnenin özelliklerinin iş kurallarına dahil etmek için format uygunluğu ile ilgili
             // services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>)); // Rol Bazlı Yetkilendirme
