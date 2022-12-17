@@ -18,4 +18,22 @@ public class TechnologyRules
         var result = await _technologyRepository.Query().Where(x => x.Name == name).AnyAsync(); // Aynı isimde veri var mı
         if (result) throw new BusinessException("Programlama Dili Teknolojisi kullanılmaktadır.");
     }
+
+    public async Task TechnologyShouldExistWhenRequested(int id)
+    {
+        var result = await _technologyRepository.Query().Where(x => x.Id == id).AnyAsync();
+        if (!result) throw new BusinessException("Programlama dili Teknolojisi mevcut değildir.");
+    }
+
+    public async Task TechnologyNameConNotBeDuplicatedWhenUpdated(int id, string name)
+    {
+        var result = await _technologyRepository.Query().Where(x => x.Name == name).AnyAsync(); // Aynı isimde veri var mı
+        if (result)
+        {
+            result = await _technologyRepository.Query().Where(x => (x.Id == id && x.Name == name)).AnyAsync(); // Aynı isimdeki veri aynı id mi evetse devam etsin hayırsa aynı isimden vardır hatası versin
+
+            if (!result)
+                throw new BusinessException("Progralama Dili Teknolojisi kullanılmaktadır!");
+        }
+    }
 }
