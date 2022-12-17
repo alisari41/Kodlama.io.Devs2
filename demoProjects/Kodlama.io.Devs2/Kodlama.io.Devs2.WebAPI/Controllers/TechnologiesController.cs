@@ -1,6 +1,7 @@
 ﻿using Core.Application.Requests;
 using Core.Persistence.Dynamic;
 using Kodlama.io.Devs2.Application.Features.Technologies.Commands.CreateTechnology;
+using Kodlama.io.Devs2.Application.Features.Technologies.Commands.DeleteTecnology;
 using Kodlama.io.Devs2.Application.Features.Technologies.Commands.UpdateTechnology;
 using Kodlama.io.Devs2.Application.Features.Technologies.Queries.GetListTechnologyByDynamic;
 using Kodlama.io.Devs2.Application.Features.Technologies.Queries.GetListTechnolojy;
@@ -27,7 +28,7 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
         [HttpPost("GetList/ByDynamic")]
         public async Task<ActionResult> GetListByDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic) // Dynamic olduğu için HttpPost kullanıldı
         {
-            GetListTechnologyByDynamicQuery getListTechnologyByDynamicQuery= new() { PageRequest = pageRequest, Dynamic = dynamic };
+            GetListTechnologyByDynamicQuery getListTechnologyByDynamicQuery = new() { PageRequest = pageRequest, Dynamic = dynamic };
 
             var result = await Mediator.Send(getListTechnologyByDynamicQuery);
             return Ok(result);
@@ -45,6 +46,13 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
         {
             var result = await Mediator.Send(updateTechnologyCommand);
             return Created("", result);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteTecnologyCommand deleteTecnologyCommand)
+        {
+            var result = await Mediator.Send(deleteTecnologyCommand);
+            return Ok(result);
         }
     }
 }

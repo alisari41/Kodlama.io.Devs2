@@ -5,6 +5,7 @@ using Kodlama.io.Devs2.Domain.Entities;
 using Kodlama.io.Devs2.Application.Features.Technologies.Dtos;
 using Kodlama.io.Devs2.Application.Features.Technologies.Commands.CreateTechnology;
 using Kodlama.io.Devs2.Application.Features.Technologies.Commands.UpdateTechnology;
+using Kodlama.io.Devs2.Application.Features.Technologies.Commands.DeleteTecnology;
 
 namespace Kodlama.io.Devs2.Application.Features.Technologies.Profiles;
 
@@ -39,6 +40,11 @@ public class MappingProfiles : Profile
         #region Update
         CreateMap<Technology, UpdatedTechnologyDto>().ReverseMap();
         CreateMap<Technology, UpdateTechnologyCommand>().ReverseMap();
+        #endregion
+
+        #region Delete
+        CreateMap<Technology, DeletedTechnologyDto>().ReverseMap();
+        CreateMap<Technology, DeleteTecnologyCommand>().ReverseMap();
         #endregion
 
     }
