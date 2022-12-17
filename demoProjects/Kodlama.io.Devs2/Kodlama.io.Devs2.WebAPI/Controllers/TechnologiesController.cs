@@ -1,4 +1,6 @@
 ﻿using Core.Application.Requests;
+using Core.Persistence.Dynamic;
+using Kodlama.io.Devs2.Application.Features.Technologies.Queries.GetListTechnologyByDynamic;
 using Kodlama.io.Devs2.Application.Features.Technologies.Queries.GetListTechnolojy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +19,15 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
                                                                                                 // getListBrandQuery.PageRequest = pageRequest;
 
             var result = await Mediator.Send(getListTecnologyQuery);
+            return Ok(result);
+        }
+
+        [HttpPost("GetList/ByDynamic")]
+        public async Task<ActionResult> GetListByDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic) // Dynamic olduğu için HttpPost kullanıldı
+        {
+            GetListTechnologyByDynamicQuery getListTechnologyByDynamicQuery= new() { PageRequest = pageRequest, Dynamic = dynamic };
+
+            var result = await Mediator.Send(getListTechnologyByDynamicQuery);
             return Ok(result);
         }
     }
