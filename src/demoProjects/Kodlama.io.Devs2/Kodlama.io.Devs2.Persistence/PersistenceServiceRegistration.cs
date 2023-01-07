@@ -4,26 +4,28 @@ using Kodlama.io.Devs2.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Kodlama.io.Devs2.Persistence
+namespace Kodlama.io.Devs2.Persistence;
+
+public static class PersistenceServiceRegistration
 {
-    public static class PersistenceServiceRegistration
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ProgrammingLanguageConnectionString")));// Projenin Adı Sonrasında ConnectionString
+        services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ProgrammingLanguageConnectionString")));// Projenin Adı Sonrasında ConnectionString
 
-            #region Repository'lerin Bağlanması
-            services.AddScoped<IProgrammingLanguageRepository, ProgrammingLanguageRepository>();// Eğer Biri IProgrammingLanguageRepository isterse ona ProgrammingLanguageRepository ver 
-            services.AddScoped<ITechnologyRepository, TechnologyRepository>();
-            #endregion
+        #region Repository'lerin Bağlanması
+        services.AddScoped<IProgrammingLanguageRepository, ProgrammingLanguageRepository>();// Eğer Biri IProgrammingLanguageRepository isterse ona ProgrammingLanguageRepository ver 
+        services.AddScoped<ITechnologyRepository, TechnologyRepository>();
 
-            return services;
-        }
+        #region JWT ( Json Web Token ) ve UseAuthentication ların Bağlanması 
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+        services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        #endregion
+
+        #endregion
+
+        return services;
     }
 }
