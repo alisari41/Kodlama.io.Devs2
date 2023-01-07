@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Features\OperationClaims\Commands\" />
     <Folder Include="Features\OperationClaims\Contants\" />
-    <Folder Include="Features\OperationClaims\Rules\" />
     <Folder Include="Features\ProgrammingLanguage\Constants\" />
     <Folder Include="Features\Technologies\Constants\" />
   </ItemGroup>

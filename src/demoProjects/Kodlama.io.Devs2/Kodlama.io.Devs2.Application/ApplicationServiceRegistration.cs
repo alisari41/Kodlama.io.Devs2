@@ -1,6 +1,7 @@
 ﻿using Core.Application.Pipelines.Validation;
 using FluentValidation;
 using Kodlama.io.Devs2.Application.Features.Auths.Rules;
+using Kodlama.io.Devs2.Application.Features.OperationClaims.Rules;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Rules;
 using Kodlama.io.Devs2.Application.Features.Technologies.Rules;
 using Kodlama.io.Devs2.Application.Services.AuthService;
@@ -28,6 +29,7 @@ namespace Kodlama.io.Devs2.Application
             services.AddScoped<ProgrammingLanguageRules>(); // Business Kuralları bir kere bellekte durur.
             services.AddScoped<TechnologyRules>();
             services.AddScoped<AuthBusinessRules>();
+            services.AddScoped<OperationClaimRules>();
             #endregion
 
 

@@ -21,6 +21,10 @@ public class MappingProfiles : Profile
         CreateMap<OperationClaim, OperationClaimDto>().ReverseMap(); // ReverseMap() iki türlüde mapleme yapmayı 
         #endregion
 
+        #region Get By Id
+        CreateMap<OperationClaim, OperationClaimGetByIdDto>().ReverseMap();
+        #endregion
+
     }
 
 }
