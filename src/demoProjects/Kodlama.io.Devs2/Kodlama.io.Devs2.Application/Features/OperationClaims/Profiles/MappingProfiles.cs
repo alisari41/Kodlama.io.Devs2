@@ -2,6 +2,7 @@
 using Core.Persistence.Paging;
 using Core.Security.Entities;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Commands.CreateOperationClaim;
+using Kodlama.io.Devs2.Application.Features.OperationClaims.Commands.DeleteOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Dtos;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Models;
 
@@ -29,6 +30,11 @@ public class MappingProfiles : Profile
         #region Create
         CreateMap<OperationClaim, CreatedOperationClaimDto>().ReverseMap();
         CreateMap<OperationClaim, CreateOperationClaimCommand>().ReverseMap();
+        #endregion
+
+        #region Delete
+        CreateMap<OperationClaim, DeletedOperationClaimDto>().ReverseMap();
+        CreateMap<OperationClaim, DeleteOperationClaimCommand>().ReverseMap();
         #endregion
 
     }

@@ -21,6 +21,12 @@ public class OperationClaimRules
         if (operationClaim == null) throw new BusinessException("Rol mevcut değildir.");
     }
 
+    public async Task OperationClaimShouldExistWhenRequested(int id)
+    {
+        var result = await _operationClaimRepository.Query().Where(x => x.Id == id).AnyAsync();
+        if (!result) throw new BusinessException("Rol mevcut değildir.");
+    }
+
     public async Task OperationClaimNameCanNotBeDuplacatedWhenInserted(string name)
     {
         var result = await _operationClaimRepository.Query().Where(x => x.Name == name).AnyAsync();
