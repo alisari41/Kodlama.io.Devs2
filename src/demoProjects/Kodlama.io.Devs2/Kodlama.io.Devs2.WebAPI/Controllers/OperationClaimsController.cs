@@ -1,5 +1,6 @@
 ﻿using Core.Application.Requests;
 using Core.Persistence.Dynamic;
+using Kodlama.io.Devs2.Application.Features.OperationClaims.Commands.CreateOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetByIdOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetListOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetListOperationClaimByDynamic;
@@ -37,6 +38,13 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
 
             var result = await Mediator.Send(getListOperationClaimByDynamicQuery);
             return Ok(result);
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromBody] CreateOperationClaimCommand createOperationClaimCommand)
+        {
+            var result = await Mediator.Send(createOperationClaimCommand);
+            return Created("", result);
         }
     }
 }

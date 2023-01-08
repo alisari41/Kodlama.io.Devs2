@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\OperationClaims\Commands\" />
     <Folder Include="Features\OperationClaims\Contants\" />
     <Folder Include="Features\ProgrammingLanguage\Constants\" />
     <Folder Include="Features\Technologies\Constants\" />
