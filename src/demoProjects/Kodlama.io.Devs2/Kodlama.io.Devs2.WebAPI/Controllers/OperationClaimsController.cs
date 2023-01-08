@@ -1,6 +1,8 @@
 ﻿using Core.Application.Requests;
+using Core.Persistence.Dynamic;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetByIdOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetListOperationClaim;
+using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetListOperationClaimByDynamic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +27,15 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
         public async Task<IActionResult> GetById([FromRoute] GetByIdOperationClaimQuery getByIdOperationClaimQuery) // route'daki Id ile GetByIdProgrammingLanguageQuery Id işlemini mapleme yapacak. Id yazılımları aynı olmak zorunda 
         {
             var result = await Mediator.Send(getByIdOperationClaimQuery);
+            return Ok(result);
+        }
+
+        [HttpPost("GetList/ByDynamic")]
+        public async Task<IActionResult> GetListByDynamic([FromQuery] PageRequest pageRequest, [FromBody] Dynamic dynamic) // Dynamic olduğu için HttpPost kullanıldı.
+        {
+            GetListOperationClaimByDynamicQuery getListOperationClaimByDynamicQuery = new() { PageRequest = pageRequest, Dynamic = dynamic };
+
+            var result = await Mediator.Send(getListOperationClaimByDynamicQuery);
             return Ok(result);
         }
     }
