@@ -2,6 +2,7 @@
 using Core.Persistence.Dynamic;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Commands.CreateOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Commands.DeleteOperationClaim;
+using Kodlama.io.Devs2.Application.Features.OperationClaims.Commands.UpdateOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetByIdOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetListOperationClaim;
 using Kodlama.io.Devs2.Application.Features.OperationClaims.Queries.GetListOperationClaimByDynamic;
@@ -53,6 +54,13 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
         {
             var result = await Mediator.Send(deleteOperationClaimCommand);
             return Ok(result);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromBody] UpdateOperationClaimCommand updateOperationClaimCommand)
+        {
+            var result = await Mediator.Send(updateOperationClaimCommand);
+            return Created("", result);
         }
     }
 }

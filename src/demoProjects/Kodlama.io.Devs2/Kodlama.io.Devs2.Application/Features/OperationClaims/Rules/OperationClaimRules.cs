@@ -32,4 +32,14 @@ public class OperationClaimRules
         var result = await _operationClaimRepository.Query().Where(x => x.Name == name).AnyAsync();
         if (result) throw new BusinessException("Bu Rol Mevcuttur.");
     }
+
+    public async Task OperationClaimNameCanNotBeDuplacatedWhenUpdated(int id, string name)
+    {
+        var result = await _operationClaimRepository.Query().Where(x => x.Name == name).AnyAsync();
+        if (result)
+        {
+            result = await _operationClaimRepository.Query().Where(x => (x.Id == id && x.Name == name)).AnyAsync();
+            if (!result) throw new BusinessException("Bu Rol Mevcuttur.");
+        }
+    }
 }
