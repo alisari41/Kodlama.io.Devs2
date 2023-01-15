@@ -5,6 +5,7 @@ using Kodlama.io.Devs2.Application.Features.OperationClaims.Rules;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Rules;
 using Kodlama.io.Devs2.Application.Features.Technologies.Rules;
 using Kodlama.io.Devs2.Application.Services.AuthService;
+using Kodlama.io.Devs2.Application.Services.UserServices;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -42,7 +43,8 @@ namespace Kodlama.io.Devs2.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
             #region Service - Çoğu yerde kullanılacak metotları yazdığımız sınıfları Bağlıyoruz
-            services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<IAuthService, AuthManager>(); // register
+            services.AddScoped<IUserServices, UserManager>(); // Login
             #endregion
 
             return services;

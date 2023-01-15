@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Core.Security.Extensions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kodlama.io.Devs2.WebAPI.Controllers
@@ -14,6 +15,12 @@ namespace Kodlama.io.Devs2.WebAPI.Controllers
         {
             if (Request.Headers.ContainsKey("X-Forwarded-For")) return Request.Headers["X-Forwarded-For"];
             return HttpContext.Connection.RemoteIpAddress?.MapToIPv4()?.ToString();
+        }
+
+        protected int GetUserIdFromRequest() //todo authentication behavior?
+        {
+            var userId = HttpContext.User.GetUserId();
+            return userId;
         }
         #endregion
     }

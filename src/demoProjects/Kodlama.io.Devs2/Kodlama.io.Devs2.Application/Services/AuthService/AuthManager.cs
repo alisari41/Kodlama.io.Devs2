@@ -1,8 +1,10 @@
 ﻿using Core.Persistence.Paging;
 using Core.Security.Entities;
+using Core.Security.Enums;
 using Core.Security.JWT;
 using Kodlama.io.Devs2.Application.Services.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Kodlama.io.Devs2.Application.Services.AuthService;
 
@@ -10,12 +12,14 @@ public class AuthManager : IAuthService
 {
     private readonly IUserOperationClaimRepository _userOperationClaimRepository;
     private readonly ITokenHelper _tokenHelper;
+    private readonly TokenOptions _tokenOptions;
     private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-    public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper, IRefreshTokenRepository refreshTokenRepository)
+    public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper, IConfiguration configuration, IRefreshTokenRepository refreshTokenRepository)
     {
         _userOperationClaimRepository = userOperationClaimRepository;
         _tokenHelper = tokenHelper;
+        _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
         _refreshTokenRepository = refreshTokenRepository;
     }
 
@@ -45,4 +49,28 @@ public class AuthManager : IAuthService
         RefreshToken refreshToken = _tokenHelper.CreateRefreshToken(user, ipAddress);
         return await Task.FromResult(refreshToken);
     }
+
+    public async Task DeleteOldRefreshToken(int userId)
+    {
+        IList<RefreshToken> refreshTokens = (await _refreshTokenRepository.GetListAsync(x =>
+                                                    x.UserId == userId &&
+                                                    x.Revoked == null && x.Expires >= DateTime.UtcNow &&
+                                                    x.Created.AddDays(_tokenOptions.RefreshTokenTTL) <=
+                                                    DateTime.UtcNow)
+                                            ).Items;
+
+        foreach (RefreshToken refreshToken in refreshTokens) await _refreshTokenRepository.DeleteAsync(refreshToken);
+    }
+
+    //public async Task SendAuthenticatorCode(User user)
+    //{
+    //    if (user.AuthenticatorType is AuthenticatorType.Email) await SendAuthenticatorCodeWithEmail(user);
+    //}
+
+    //private async Task SendAuthenticatorCodeWithEmail(User user)
+    //{
+    //    EmailAuthenticator emailAuthenticator = await _ema
+    //}
+
+
 }
