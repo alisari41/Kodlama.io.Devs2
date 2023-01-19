@@ -1,20 +1,21 @@
 ﻿using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Dtos;
 using Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Rules;
 using Kodlama.io.Devs2.Application.Services.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Kodlama.io.Devs2.Domain.Constants.ProgrammingLanguage;
+using static Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Constants.OperationClaims;
 
 namespace Kodlama.io.Devs2.Application.Features.ProgrammingLanguage.Commands.CreateProgrammingLanguage
 {
-    public class CreateProgrammingLanguageCommand : IRequest<CreatedProgrammingLanguageDto>
+    public class CreateProgrammingLanguageCommand : IRequest<CreatedProgrammingLanguageDto>, ISecuredRequest
     {
+
         // Son kullanıcının bize göndereceği son dataları içeren yapı
         public string Name { get; set; }
+
+        public string[] Roles => new[] { Admin, BrandAdd }; // Rol bazlı çalışmak için  ISecuredRequest implement et
 
 
         // Bir tanede Handlerımız var yani böyle bir command sıraya koyulursa hangi Handler çalışacak onu IRequestHandler olduğunu belirtiyoruz. Hem çalışacağımız command'i hemde dönüş tipimizi belirtiyoruz.
